@@ -48,7 +48,7 @@
     "ngx-echarts": "^4.2.2",
     "ngx-sortable": "^1.0.3",
     "node-sass": "^4.14.1",
-    "nodemailer": "^6.4.16",
+    "nodemailer": "^6.6.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.3.3",
     "save": "^2.4.0",
