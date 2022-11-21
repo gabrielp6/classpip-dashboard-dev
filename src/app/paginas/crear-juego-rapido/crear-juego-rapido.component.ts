@@ -38,7 +38,8 @@ export interface ChipColor {
 })
 export class CrearJuegoRapidoComponent implements OnInit {
   profesorId: number;
-
+  //VARIABLES PARA JUEGO RAPIDO
+  Puntuacion: number []= [];
 
   // tslint:disable-next-line:ban-types
   juegoCreado: Boolean = false;
@@ -92,9 +93,6 @@ export class CrearJuegoRapidoComponent implements OnInit {
   ];
   tengoModoReparto = false;
   puntosARepartir = 0;
-
-  Puntuacion: number[] = [];
-
   TablaPuntuacion: TablaPuntosFormulaUno[];
   displayedColumnsTablaPuntuacion: string[] = ['select', 'Posicion', 'Puntos'];
 
@@ -128,7 +126,12 @@ export class CrearJuegoRapidoComponent implements OnInit {
   seleccionModoPresentacionKahoot: string[] = ['Mostrar pregunta',
   'No mostrar pregunta'];
   tiempoLimite: number;
-
+  valorSegundos= 0;
+  modoDeTiempoLibre: string;
+  seleccionModoTiempoLibre: ChipColor[] = [
+    {nombre: 'TiempoLibre', color: 'warn'}  
+  ];
+  tengoModoTiempo = false;
 
   constructor(
     public dialog: MatDialog,
@@ -331,9 +334,19 @@ ModoDeRepartoSeleccionado(modoReparto: ChipColor) {
   this.modoDeRepartoSeleccionado = modoReparto.nombre;
   this.tengoModoReparto = true;
 }
+ModoDeTiempoLibreSeleccionado(modoTiempo: ChipColor) {
+  this.modoDeTiempoLibre = modoTiempo.nombre;
+  this.tengoModoTiempo = true;
+  console.log(this.modoDeTiempoLibre +"tiempolibre ");
+}
 GuardaValor(event) {
   this.puntosARepartir = event.value;
   this.Puntuacion[0] = this.puntosARepartir;
+}
+Segundos(event) {
+  this.valorSegundos = event.value;
+  this.Puntuacion[0] = this.valorSegundos;
+  console.log(this.valorSegundos+ " segundos");
 }
 
 CrearJuegoDeVotacionRapida() {
@@ -427,6 +440,7 @@ CrearJuegoDeVotacionRapida() {
     if (this.tiempoLimite === undefined) {
       this.tiempoLimite = 0;
     }
+    console.log(this.tiempoLimite + "esta entrando aqui");
   }
 
 
@@ -443,7 +457,7 @@ CrearJuegoDeVotacionRapida() {
       clave,
       this.puntuacionCorrecta,
       this.puntuacionIncorrecta, this.modoPresentacion,
-      false, false, this.profesorId, this.cuestionario.id, this.tiempoLimite);
+      false, false, this.profesorId, this.cuestionario.id, this.valorSegundos);
     console.log ('voy a crear juego');
     console.log (juegoDeCuestionarioRapido);
 
