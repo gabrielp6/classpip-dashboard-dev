@@ -180,16 +180,37 @@
             <mat-step>
               <ng-template matStepLabel><div>Tiempo</div></ng-template>
 
-              <mat-form-field>
+              <!-- <mat-form-field>
                 <mat-label *ngIf ="modalidadSeleccionada === 'Clásico'" >Introduzca el tiempo límite para responder el cuestionario (en segundos)</mat-label>
-                <mat-label *ngIf ="modalidadSeleccionada === 'Kahoot'" >Introduzca el tiempo límite para responder cada pregunta (en segundos)</mat-label>
+              </mat-form-field> -->
+              <div class = "colorsChips">
 
-                <input  matInput formControlName="TiempoLimite" placeholder="Introduzca el tiempo limite" requiered>
-              </mat-form-field>
+                <label class = "LabelStepper"> Selecciona el tiempo libre para responder cada pregunta (en segundos)</label>
+                <mat-chip-list class="mat-chip-list-stacked">
+                  <div class = "enFila" *ngFor="let modo of seleccionModoTiempoLibre; let i = index" style = "width: 60%">
+                      <mat-chip style = "width: 250px" selected [color]="modo.color"  selected="{{seleccionModoTiempoLibre[i].selected}}"
+                            (click)="ModoDeTiempoLibreSeleccionado(seleccionModoTiempoLibre[i])" [value]="modo.nombre" [selectable]="true">
+                              {{modo.nombre}}
+                      </mat-chip>
+                     <div *ngIf = "(modoDeTiempoLibre === 'TiempoLibre')">
+                          <span style ="font-weight: bold;">Tiempo Libre a seleccionar:   </span>
+                          <mat-slider
+                            thumbLabel
+                            (change)="Segundos($event)"
+                            tickInterval="1"
+                            min="1"
+                            max="100">
+                          </mat-slider>
+                     </div>
 
+                  </div>
+                </mat-chip-list>
+               
+                <div> Has seleccionado {{valorSegundos}} segundos</div>
+              </div>
               <div class="btnCambiarStep">
                 <button type="button" class="btn Back" matStepperPrevious>Atrás</button>
-                <button  type="button" (click) = "GuardarTiempoLimite()" class="btn Next" matStepperNext>Siguiente</button>
+                <button *ngIf = "(modoDeTiempoLibre === 'TiempoLibre')" [disabled]="!tengoModoTiempo && valorSegundos > 0" type="button" class="btn Next" matStepperNext>Siguiente</button>
               </div>
             </mat-step>
             <!--Ultimo paso, finalizamos-->
