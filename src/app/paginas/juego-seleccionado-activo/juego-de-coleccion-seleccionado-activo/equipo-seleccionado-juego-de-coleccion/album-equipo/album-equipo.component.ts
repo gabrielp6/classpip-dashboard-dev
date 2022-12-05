@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseContentType, Http, Response } from '@angular/http';
 
 // Clases
 import { Cromo, Coleccion, ParaAlbum } from '../../../../../clases/index';
@@ -10,6 +9,7 @@ import { SesionService, PeticionesAPIService } from '../../../../../servicios/in
 import { Location } from '@angular/common';
 
 import * as URL from '../../../../../URLs/urls';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-album-equipo',
@@ -40,7 +40,7 @@ export class AlbumEquipoComponent implements OnInit {
   constructor(  private sesion: SesionService,
                 private peticionesAPI: PeticionesAPIService,
                 public location: Location,
-                private http: Http) { }
+                private http: HttpClient) { }
 
   ngOnInit() {
 

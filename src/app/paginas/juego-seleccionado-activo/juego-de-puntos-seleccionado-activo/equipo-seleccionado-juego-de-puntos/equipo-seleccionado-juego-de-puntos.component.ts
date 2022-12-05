@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseContentType, Http, Response } from '@angular/http';
 
 import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDePuntos,
   TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, TablaHistorialPuntosEquipo } from '../../../../clases/index';
@@ -59,7 +58,7 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
                public calculos: CalculosService,
                public peticionesAPI: PeticionesAPIService,
                public location: Location,
-               private http: Http) { }
+               ) { }
 
   ngOnInit() {
 

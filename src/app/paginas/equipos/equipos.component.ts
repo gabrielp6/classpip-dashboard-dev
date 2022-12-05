@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ResponseContentType, Http, Response } from '@angular/http';
 import Swal from 'sweetalert2';
 
 // Imports para abrir diálogo confirmar eliminar equipo
@@ -86,8 +85,7 @@ export class EquiposComponent implements OnInit {
                private formBuilder: FormBuilder,
                private sesion: SesionService,
                private calculos: CalculosService,
-               private peticionesAPI: PeticionesAPIService,
-               private http: Http
+               private peticionesAPI: PeticionesAPIService
                ) { }
 
   ngOnInit() {
