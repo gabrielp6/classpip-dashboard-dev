@@ -15,7 +15,7 @@ import autoTable from 'jspdf-autotable';
   styleUrls: ['./juego-de-cuestionario-satisfaccion-activo.component.scss']
 })
 export class JuegoDeCuestionarioSatisfaccionActivoComponent implements OnInit {
-  @ViewChild('htmlData') htmlData: ElementRef;
+  @ViewChild('htmlData', {static: false}) htmlData: ElementRef;
 
   juegoSeleccionado: any;
   inscripciones: AlumnoJuegoDeCuestionarioSatisfaccion[];

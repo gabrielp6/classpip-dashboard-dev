@@ -42,7 +42,7 @@ export class JuegoDeEvaluacionActivoComponent implements OnInit {
 
   evaluados;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(
     private sesion: SesionService,

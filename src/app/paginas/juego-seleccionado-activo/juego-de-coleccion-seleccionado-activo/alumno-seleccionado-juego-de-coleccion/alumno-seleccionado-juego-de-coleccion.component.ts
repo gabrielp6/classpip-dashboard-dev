@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseContentType, Http, Response } from '@angular/http';
 import {Sort} from '@angular/material/sort';
 
 import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion,
@@ -46,7 +45,6 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
                private peticionesAPI: PeticionesAPIService,
                private calculos: CalculosService,
                private location: Location,
-               private http: Http,
                public dialog: MatDialog
 
   ) {}

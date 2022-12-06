@@ -9,7 +9,6 @@ import { Juego, Jornada, TablaJornadas, TablaAlumnoJuegoDeCompeticion,
 
 // Servicio
 import { SesionService , CalculosService, PeticionesAPIService } from '../../../../servicios/index';
-import { forEach } from '@angular/router/src/utils/collection';
 import { MatTableDataSource } from '@angular/material';
 
 import Swal from 'sweetalert2';
@@ -37,6 +36,8 @@ const ModoAsignacion: Asignacion[] = [
 })
 export class GanadoresJuegoDeCompeticionFormulaUnoComponent implements OnInit {
   [x: string]: any;
+
+  equiposRelacion;
 
   juegoSeleccionado: Juego;
   numeroTotalJornadas: number;

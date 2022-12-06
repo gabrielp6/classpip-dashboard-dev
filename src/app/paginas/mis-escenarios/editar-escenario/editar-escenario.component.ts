@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
-import { ResponseContentType, Http, Response } from '@angular/http';
 
 import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import Swal from 'sweetalert2';
@@ -41,7 +40,6 @@ export class EditarEscenarioComponent implements OnInit {
   constructor(
               public dialog: MatDialog,
               private location: Location,
-              private http: Http,
               private sesion: SesionService,
               private peticionesAPI: PeticionesAPIService
   ) { }

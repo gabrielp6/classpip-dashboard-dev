@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseContentType, Http, Response } from '@angular/http';
 
 // Clases
 import { Cromo, Coleccion } from '../../../../clases/index';
@@ -40,8 +39,7 @@ export class InformacionJuegoColeccionComponent implements OnInit {
   constructor(
                 private sesion: SesionService,
                 private peticionesAPI: PeticionesAPIService,
-                public location: Location,
-                private http: Http) { }
+                public location: Location) { }
 
   ngOnInit() {
     this.coleccion = this.sesion.DameColeccion();

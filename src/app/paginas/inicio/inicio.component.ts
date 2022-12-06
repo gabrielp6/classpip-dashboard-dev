@@ -16,8 +16,6 @@ import { Router } from '@angular/router';
 
 // Servicios
 import {SesionService, PeticionesAPIService, CalculosService} from '../../servicios/index';
-import { TrustedString } from '@angular/core/src/sanitization/bypass';
-
 
 
 
@@ -49,7 +47,7 @@ export class InicioComponent implements OnInit {
                 private router: Router) { }
 
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   ngOnInit() {
     this.profesor = this.sesion.DameProfesor();

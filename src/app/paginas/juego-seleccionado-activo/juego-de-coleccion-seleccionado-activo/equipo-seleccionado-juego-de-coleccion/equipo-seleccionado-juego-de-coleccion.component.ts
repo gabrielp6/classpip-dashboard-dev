@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseContentType, Http, Response } from '@angular/http';
 
 import { Alumno, Equipo, Juego, EquipoJuegoDeColeccion, Cromo, Coleccion } from '../../../../clases/index';
 
@@ -13,6 +12,7 @@ import { MatDialog } from '@angular/material';
 import Swal from 'sweetalert2';
 
 import * as URL from '../../../../URLs/urls';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-equipo-seleccionado-juego-de-coleccion',
@@ -46,7 +46,7 @@ export class EquipoSeleccionadoJuegoDeColeccionComponent implements OnInit {
   constructor( private sesion: SesionService,
                private peticionesAPI: PeticionesAPIService,
                private calculos: CalculosService,
-               private http: Http,
+               private http: HttpClient,
                public location: Location,
                public dialog: MatDialog
                ) { }
@@ -70,10 +70,10 @@ export class EquipoSeleccionadoJuegoDeColeccionComponent implements OnInit {
       this.http.get(URL.LogosEquipos + this.equipo.FotoEquipo,
     
       //this.http.get('http://localhost:3000/api/imagenes/LogosEquipos/download/' + this.equipo.FotoEquipo,
-      { responseType: ResponseContentType.Blob })
+      { responseType: 'blob' })
       .subscribe(response => {
 
-        const blob = new Blob([response.blob()], { type: 'image/jpg'});
+        const blob = new Blob([response], { type: 'image/jpg'});
 
         const reader = new FileReader();
         reader.addEventListener('load', () => {
