@@ -23,9 +23,6 @@ import 'rxjs';
 import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { forEach } from '@angular/router/src/utils/collection';
-import { stringify } from 'querystring';
-import { controlNameBinding } from '@angular/forms/src/directives/reactive_directives/form_control_name';
 
 export interface OpcionSeleccionada {
   nombre: string;
@@ -42,9 +39,9 @@ export interface OpcionSeleccionada {
 export class CrearFamiliasmemoramaComponent implements OnInit {
   // Para el paso finalizar limpiar las variables y volver al mat-tab de "Lista de equipos"
   // @ViewChild('stepper') stepper;
-  @ViewChild('stepper') private stepper: MatStepper;
+  @ViewChild('stepper', {static: false}) private stepper: MatStepper;
 
-  @ViewChild('tabs') tabGroup: MatTabGroup;
+  @ViewChild('tabs', {static: false}) tabGroup: MatTabGroup;
   myForm: FormGroup;
   myForm2: FormGroup;
   myForm3: FormGroup;

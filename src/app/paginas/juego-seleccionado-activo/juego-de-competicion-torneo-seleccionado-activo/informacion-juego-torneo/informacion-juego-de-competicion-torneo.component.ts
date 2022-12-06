@@ -6,7 +6,6 @@ import { Juego, Jornada,Alumno,Equipo,  EnfrentamientoTorneo, TablaJornadas, Alu
 
 // Servicio
 import { SesionService , CalculosService, PeticionesAPIService } from '../../../../servicios/index';
-import { forEach } from '@angular/router/src/utils/collection';
 import { MatTableDataSource } from '@angular/material';
 import { identifierModuleUrl } from '@angular/compiler';
 

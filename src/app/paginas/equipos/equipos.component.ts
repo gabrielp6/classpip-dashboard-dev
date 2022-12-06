@@ -26,8 +26,8 @@ import * as URL from '../../URLs/urls';
 export class EquiposComponent implements OnInit {
 
   // Para el paso finalizar limpiar las variables y volver al mat-tab de "Lista de equipos"
-  @ViewChild('stepper') stepper;
-  @ViewChild('tabs') tabGroup: MatTabGroup;
+  @ViewChild('stepper', {static: false}) stepper;
+  @ViewChild('tabs', {static: false}) tabGroup: MatTabGroup;
   myForm: FormGroup;
 
 
