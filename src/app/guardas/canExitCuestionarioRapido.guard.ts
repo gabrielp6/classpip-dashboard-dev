@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanDeactivate } from '@angular/router/src/utils/preactivation';
+import { CanDeactivate } from '@angular/router';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 // tslint:disable-next-line:max-line-length
@@ -7,7 +7,7 @@ import { JuegoDeCuestionarioRapidoComponent } from '../paginas/mis-juegos-rapido
 
 // Esta es la guarda para impedir que se abandone una página a menos que se confirme
 @Injectable()
-export class DeactivateGuardCuestionarioRapido implements CanDeactivate {
+export class DeactivateGuardCuestionarioRapido {
     // tslint:disable-next-line:ban-types
     component: Object;
     route: ActivatedRouteSnapshot;

@@ -1,5 +1,4 @@
 import { MatDialog } from '@angular/material';
-import { ResponseContentType, Http, Response } from '@angular/http';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
@@ -49,7 +48,6 @@ export class EditarPuntoGeolocalizableDialogComponent implements OnInit {
               private peticionesAPI: PeticionesAPIService,
               private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<EditarPuntoGeolocalizableDialogComponent>,
-              private http: Http,
               @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 

@@ -91,8 +91,8 @@ export class JuegoComponent implements OnInit {
   rangePicker: any;
 
   equiposGrupo: Equipo[];
-  @ViewChild('stepper') stepper;
-  @ViewChild('tabs') tabGroup: MatTabGroup;
+  @ViewChild('stepper', {static: false}) stepper;
+  @ViewChild('tabs', {static: false}) tabGroup: MatTabGroup;
 
   // tslint:disable-next-line:ban-types
   juegoCreado: Boolean = false;

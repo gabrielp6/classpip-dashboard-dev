@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { AgregarAlumnoEquipoComponent } from '../agregar-alumno-equipo/agregar-alumno-equipo.component';
 import { MoverAlumnoComponent } from './mover-alumno/mover-alumno.component';
-import { ResponseContentType, Http } from '@angular/http';
 
 // Clases
 import { Equipo, Alumno, AsignacionEquipo } from '../../../clases/index';
@@ -53,8 +52,7 @@ export class EditarEquipoComponent implements OnInit {
                 private location: Location,
                 private sesion: SesionService,
                 private calculos: CalculosService,
-                private peticionesAPI: PeticionesAPIService,
-                private http: Http ) { }
+                private peticionesAPI: PeticionesAPIService ) { }
 
   ngOnInit() {
     this.equipo = this.sesion.DameEquipo();

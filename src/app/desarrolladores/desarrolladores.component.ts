@@ -258,8 +258,8 @@ export class DesarrolladoresComponent implements OnInit {
    ) { }
 
   /* Anotaciones necesarias para la ordenación y la paginación */
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   ngOnInit() {
 
