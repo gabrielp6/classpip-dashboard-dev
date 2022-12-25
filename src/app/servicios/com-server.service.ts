@@ -15,16 +15,16 @@ export class ComServerService {
   notificacionconectar = 'dash conectado';
   private socket;
   private url = URL.Servidor;
-  constructor( private sesion: SesionService) {
+  constructor(private sesion: SesionService) {
   }
 
 
 
   public Conectar(profesorId) {
-    console.log ('voy a conectar ', this.url);
+    console.log('voy a conectar ', this.url);
     this.socket = io(this.url);
     this.socket.emit('dash', this.notificacionconectar);
-    this.socket.emit ('conectarDash', profesorId);
+    this.socket.emit('conectarDash', profesorId);
   }
 
   public ConectarCuentos() {
@@ -111,7 +111,7 @@ export class ComServerService {
     }
     // juego de avatar
     if (((tipoEvento === 30) || (tipoEvento === 31)) && (this.sesion.DameProfesor().configuracionEventos[3][1])) {
-     this.socket.emit('notificacionIndividual', { alumnoId: alumnoDestinatarioId, mensaje: mensajeAEnviar });
+      this.socket.emit('notificacionIndividual', { alumnoId: alumnoDestinatarioId, mensaje: mensajeAEnviar });
     }
   }
 
@@ -130,11 +130,21 @@ export class ComServerService {
     }
   }
 
-  public EnviarNotificacionGrupo(tipoEvento: number , grupoDestinatarioId: number, mensajeAEnviar: string) {
+  public EnviarNotificacionGrupo(tipoEvento: number, grupoDestinatarioId: number, mensajeAEnviar: string) {
     if ((tipoEvento === 1) && (this.sesion.DameProfesor().configuracionEventos[0][1])) {
       this.socket.emit('notificacionGrupo', { grupoId: grupoDestinatarioId, mensaje: mensajeAEnviar });
     }
 
+  }
+
+  /**
+   * Este mensaje envia el aviso a un grupo, que ha habido un cambio del status
+   * de un juego {Activo, No activo}, para asi poder refrescar la UI del alumno por ejemplo   
+   * parameter mensaje => Es el juego que se ha activado/desactivado
+   */
+
+  public enviarInfoGrupoJuegoStatus(grupoDestinatarioId: number) {
+    this.socket.emit('nuevoStatusJuegoGrupo', { grupoId: grupoDestinatarioId, mensaje: "El status de un juego ha cambiado" });
   }
 
   public RecordarContrasena(profesor: Profesor) {
@@ -223,30 +233,30 @@ export class ComServerService {
   //Función para testeo conexión a servidor
   public AvanzarPregunta(grupoDestinatarioId: number) {
     // Cuando apretemos el boton, queremos que avance a la siguiente pregunta en el mv.
-    console.log ('voy a avanzar la pregunta');
-    this.socket.emit ('avanzarPregunta', {grupoId: grupoDestinatarioId});
+    console.log('voy a avanzar la pregunta');
+    this.socket.emit('avanzarPregunta', { grupoId: grupoDestinatarioId });
   }
 
   //MÉTODOS NECESARIOS, PARA LA INTERACCIÓN DASHBOARD-SERVER, EN LA MODALIDAD KAHOOT
 
-  public EsperoRespuestasCuestionarioKahoot(): any  {
+  public EsperoRespuestasCuestionarioKahoot(): any {
     return Observable.create((observer) => {
-        this.socket.on('respuestaAlumnoKahoot', (respuesta) => {
-            console.log ('ya tengo respuesta');
-            console.log (respuesta);
-            observer.next(respuesta);
-        });
+      this.socket.on('respuestaAlumnoKahoot', (respuesta) => {
+        console.log('ya tengo respuesta');
+        console.log(respuesta);
+        observer.next(respuesta);
+      });
     });
   }
 
   //Método que espera recibir la conexión del alumno para reflejarlo en la tabla de resumen
-  public EsperoConexionesCuestionarioKahoot(): any  {
+  public EsperoConexionesCuestionarioKahoot(): any {
     return Observable.create((observer) => {
-        this.socket.on('conexionAlumnoKahoot', (respuesta) => {
-            console.log ('Alumno conectado al juego');
-            console.log (respuesta);
-            observer.next(respuesta);
-        });
+      this.socket.on('conexionAlumnoKahoot', (respuesta) => {
+        console.log('Alumno conectado al juego');
+        console.log(respuesta);
+        observer.next(respuesta);
+      });
     });
   }
 
@@ -254,49 +264,49 @@ export class ComServerService {
     // Si es un juego rapido el id es el nickname. Si es un juego normal entonces es el id del alumno
     return Observable.create((observer) => {
       this.socket.on('confirmacionPreparadoParaKahoot', (id) => {
-          console.log ('recibo nick: ' + id);
-          observer.next(id);
+        console.log('recibo nick: ' + id);
+        observer.next(id);
       });
     });
   }
 
   public NotificarLanzarSiguientePregunta(claveJuego: string, info: any) {
-    this.socket.emit ('lanzarSiguientePregunta' , {clave: claveJuego, opcionesDesordenadas: info});
+    this.socket.emit('lanzarSiguientePregunta', { clave: claveJuego, opcionesDesordenadas: info });
 
   }
   public NotificarLanzarSiguientePreguntaGrupo(gId: number, info: any) {
-    this.socket.emit ('lanzarSiguientePreguntaGrupo' , {grupoId: gId, opcionesDesordenadas: info});
+    this.socket.emit('lanzarSiguientePreguntaGrupo', { grupoId: gId, opcionesDesordenadas: info });
   }
-  
-  public NotificarPanelAbierto (gId: number) {
-    this.socket.emit ('panelAbierto' , gId);
+
+  public NotificarPanelAbierto(gId: number) {
+    this.socket.emit('panelAbierto', gId);
   }
 
   public NotificarResultadoFinalKahoot(claveJuego: string, res: any) {
-    this.socket.emit ('resultadoFinalKahoot' , {clave: claveJuego, resultado: res});
+    this.socket.emit('resultadoFinalKahoot', { clave: claveJuego, resultado: res });
 
   }
 
   public NotificarResultadoFinalKahootGrupo(gId: number, res: any) {
-    this.socket.emit ('resultadoFinalKahootGrupo' , {grupoId: gId, resultado: res});
-  } 
+    this.socket.emit('resultadoFinalKahootGrupo', { grupoId: gId, resultado: res });
+  }
 
-  public EsperoRespuestasCuestionarioKahootRapido(): any  {
+  public EsperoRespuestasCuestionarioKahootRapido(): any {
     return Observable.create((observer) => {
-        this.socket.on('respuestaAlumnoKahootRapido', (respuesta) => {
-            console.log ('recibo respuesta kahoot ');
-            console.log (respuesta);
-            observer.next(respuesta);
-        });
+      this.socket.on('respuestaAlumnoKahootRapido', (respuesta) => {
+        console.log('recibo respuesta kahoot ');
+        console.log(respuesta);
+        observer.next(respuesta);
+      });
     });
   }
-  public EsperoRespuestasCuestionarioKahootGrupo(): any  {
+  public EsperoRespuestasCuestionarioKahootGrupo(): any {
     return Observable.create((observer) => {
-        this.socket.on('respuestaAlumnoKahootGrupo', (respuesta) => {
-            console.log ('recibo respuesta kahoot ');
-            console.log (respuesta);
-            observer.next(respuesta);
-        });
+      this.socket.on('respuestaAlumnoKahootGrupo', (respuesta) => {
+        console.log('recibo respuesta kahoot ');
+        console.log(respuesta);
+        observer.next(respuesta);
+      });
     });
   }
   /* JUEGO DE EVALUACION */
@@ -310,7 +320,7 @@ export class ComServerService {
   }
   /* FIN JUEGO DE EVALUACION */
   public InformarFinJuegoRapido(profesorId: number) {
-    this.socket.emit ('finJuegoRapido' , profesorId);
+    this.socket.emit('finJuegoRapido', profesorId);
   }
 }
 

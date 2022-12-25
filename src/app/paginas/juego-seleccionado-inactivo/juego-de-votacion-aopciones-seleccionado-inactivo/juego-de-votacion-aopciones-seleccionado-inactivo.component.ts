@@ -6,6 +6,7 @@ import { AlumnoJuegoDeVotacionAOpciones } from 'src/app/clases';
 import { MatTableDataSource } from '@angular/material/table';
 import {jsPDF} from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class JuegoDeVotacionAOpcionesSeleccionadoInactivoComponent implements On
     public sesion: SesionService,
     public peticionesAPI: PeticionesAPIService,
     public calculos: CalculosService,
-    private location: Location
+    private location: Location,
+    public comServerService: ComServerService
   ) { }
 
   ngOnInit() {
@@ -129,20 +131,14 @@ export class JuegoDeVotacionAOpcionesSeleccionadoInactivoComponent implements On
   }
 
   Reactivar() {
-    Swal.fire({
-      title: '¿Seguro que quieres activar el juego de votación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    reActivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;
         this.peticionesAPI.CambiaEstadoJuegoDeVotacionAOpciones (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }

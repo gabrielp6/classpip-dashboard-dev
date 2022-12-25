@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SesionService, PeticionesAPIService, CalculosService } from '../../../servicios/index';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from '../../../servicios/index';
 import Swal from 'sweetalert2';
 import {JuegoDeVotacionTodosAUno, Alumno, AlumnoJuegoDeVotacionTodosAUno, TablaAlumnoJuegoDeVotacionTodosAUno} from '../../../clases/index';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
+import { reActivarJuego } from '../../ventana-re-activar-juego/reActivarJuego';
 
 @Component({
   selector: 'app-juego-de-votacion-todos-auno-seleccionado-inactivo',
@@ -25,7 +26,8 @@ export class JuegoDeVotacionTodosAUnoSeleccionadoInactivoComponent implements On
     public sesion: SesionService,
     public peticionesAPI: PeticionesAPIService,
     public calculos: CalculosService,
-    private location: Location
+    private location: Location,
+    public comServerService: ComServerService
   ) { }
 
 
@@ -113,20 +115,14 @@ export class JuegoDeVotacionTodosAUnoSeleccionadoInactivoComponent implements On
   }
 
   Reactivar() {
-    Swal.fire({
-      title: '¿Seguro que quieres activar el juego de votación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    reActivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;
         this.peticionesAPI.CambiaEstadoJuegoDeVotacionTodosAUno (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }

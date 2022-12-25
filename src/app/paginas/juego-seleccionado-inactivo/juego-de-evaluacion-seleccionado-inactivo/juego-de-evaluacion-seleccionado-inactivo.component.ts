@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {PeticionesAPIService, SesionService, CalculosService} from '../../../servicios';
+import {PeticionesAPIService, SesionService, CalculosService, ComServerService} from '../../../servicios';
 import {JuegoDeEvaluacion} from '../../../clases/JuegoDeEvaluacion';
 import {Alumno, Equipo, Rubrica} from '../../../clases';
 import {AlumnoJuegoDeEvaluacion} from '../../../clases/AlumnoJuegoDeEvaluacion';
@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { EvaluacionDialogoComponent } from '../../juego-seleccionado-activo/juego-de-evaluacion-activo/evaluacion-dialogo/evaluacion-dialogo.component';
+import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class JuegoDeEvaluacionSeleccionadoInactivoComponent implements OnInit {
     private peticionesAPI: PeticionesAPIService,
     private calculos: CalculosService,
     private dialog: MatDialog,
-    private location: Location
+    private location: Location,
+    public comServerService: ComServerService
   ) { }
   ngOnInit() {
     /* Instrucciones necesarias para la ordenación y la paginación */
@@ -863,23 +865,15 @@ export class JuegoDeEvaluacionSeleccionadoInactivoComponent implements OnInit {
   
   
   Reactivar() {
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego de evaluación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    reActivarJuego().then((result) => {
       if (result.value) {
 
         this.juego.JuegoActivo = true;
         this.peticionesAPI.CambiaEstadoJuegoDeEvaluacion (this.juego)
         .subscribe(res => {
             if (res !== undefined) {
-              console.log(res);
-              console.log('juego desactivado');
-              Swal.fire('El juego se ha desactivado correctamente');
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juego.grupoId);
+              Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }
         });

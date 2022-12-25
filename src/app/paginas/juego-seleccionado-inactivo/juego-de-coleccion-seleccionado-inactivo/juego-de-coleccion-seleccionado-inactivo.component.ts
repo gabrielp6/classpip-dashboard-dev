@@ -8,12 +8,13 @@ import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion, 
 
 // Services
 
-import { SesionService, CalculosService, PeticionesAPIService } from '../../../servicios/index';
+import { SesionService, CalculosService, PeticionesAPIService, ComServerService } from '../../../servicios/index';
 
 // Imports para abrir diálogo y swal
 import { MatDialog } from '@angular/material';
 import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import Swal from 'sweetalert2';
+import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
 
 @Component({
   selector: 'app-juego-de-coleccion-seleccionado-inactivo',
@@ -54,7 +55,8 @@ export class JuegoDeColeccionSeleccionadoInactivoComponent implements OnInit {
               private calculos: CalculosService,
               public dialog: MatDialog,
               private router: Router,
-              private location: Location) { }
+              private location: Location,
+              public comServerService: ComServerService) { }
 
   ngOnInit() {
 
@@ -333,20 +335,14 @@ export class JuegoDeColeccionSeleccionadoInactivoComponent implements OnInit {
     });
   }
   Reactivar() {
-    Swal.fire({
-      title: '¿Seguro que quieres activar el juego?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    reActivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;
         this.peticionesAPI.CambiaEstadoJuegoDeColeccion (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }
