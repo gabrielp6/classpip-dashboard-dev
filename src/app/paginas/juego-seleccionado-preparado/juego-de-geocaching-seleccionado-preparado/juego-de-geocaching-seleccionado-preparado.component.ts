@@ -13,7 +13,7 @@ import { InformacionJuegoDeGeocachingDialogComponent } from '../../juego-selecci
 import { AlumnoJuegoDeGeocaching } from 'src/app/clases/AlumnoJuegoDeGeocaching';
 import { TablaAlumnoJuegoDeGeocaching } from 'src/app/clases/TablaAlumnoJuegoDeGeocaching';
 import { JuegoDeGeocaching } from 'src/app/clases/JuegoDeGeocaching';
-import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-geocaching-seleccionado-preparado',

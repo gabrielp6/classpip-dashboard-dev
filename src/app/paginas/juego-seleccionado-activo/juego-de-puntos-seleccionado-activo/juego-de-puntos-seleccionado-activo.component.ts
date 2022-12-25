@@ -1,3 +1,4 @@
+import { ComServerService } from 'src/app/servicios';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
@@ -60,7 +61,8 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
                private calculos: CalculosService,
                private sesion: SesionService,
                private peticionesAPI: PeticionesAPIService,
-               private location: Location ) { }
+               private location: Location,
+               private comServerService: ComServerService ) { }
 
   ngOnInit() {
 
@@ -314,6 +316,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     this.peticionesAPI.CambiaEstadoJuegoDePuntos (this.juegoSeleccionado)
     .subscribe(res => {
         if (res !== undefined) {
+          this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
           console.log(res);
           console.log('juego desactivado');
           this.location.back();

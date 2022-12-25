@@ -14,6 +14,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 
 import {MatTableDataSource} from '@angular/material/table';
 
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
+
 
 
 @Component({
@@ -320,20 +322,14 @@ export class JuegoDeAvatarSeleccionadoActivoComponent implements OnInit {
   }
 
   DesactivarJuego() {
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego de avatar?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = false;
         this.peticionesAPI.CambiaEstadoJuegoDeAvatar (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               console.log(res);
               console.log('juego desactivado');
               Swal.fire('El juego se ha desactivado correctamente');

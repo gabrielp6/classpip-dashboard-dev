@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import {MatTableDataSource} from '@angular/material/table';
 import { MisPuntosComponent } from '../../mis-puntos/mis-puntos.component';
 import { Observable } from 'rxjs';
-import { reActivarJuego } from '../../ventana-re-activar-juego/reActivarJuego';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-control-de-trabajo-en-equipo-seleccionado-activo',
@@ -307,7 +307,7 @@ export class JuegoDeControlDeTrabajoEnEquipoSeleccionadoActivoComponent implemen
 
 
   Reactivar() {
-    reActivarJuego().then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;

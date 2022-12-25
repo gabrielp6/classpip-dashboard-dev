@@ -1,4 +1,4 @@
-import { Juego } from './../../clases/Juego';
+import { Juego } from '../../clases/Juego';
 import Swal from 'sweetalert2';
 import { PeticionesAPIService, ComServerService } from 'src/app/servicios';
 import { Location } from '@angular/common';
@@ -15,10 +15,22 @@ const reActivarJuego =  (): any=> {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, estoy seguro'
   })
+}
 
-
+const desactivarJuego =  (): any=> {
+   
+  return Swal.fire({
+    title: '¿Seguro que quieres desactivar el juego de avatar?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, estoy seguro'
+  })
 }
 
 
-export { reActivarJuego }
+
+
+export { reActivarJuego, desactivarJuego }
 

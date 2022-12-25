@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
 import { EquipoJuegoDeVotacionUnoATodos } from 'src/app/clases/EquipoJuegoDeVotacionUnoATodos';
 import { TablaEquipoJuegoDeVotacionUnoATodos } from 'src/app/clases/TablaEquipoJuegoDeVotacionUnoATodos';
-import { reActivarJuego } from '../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-votacion-uno-atodos-seleccionado-inactivo',

@@ -3,7 +3,7 @@ import { SesionService, PeticionesAPIService, CalculosService, ComServerService 
 import Swal from 'sweetalert2';
 import {Alumno, AlumnoJuegoDeCuestionarioSatisfaccion } from 'src/app/clases';
 import { Location } from '@angular/common';
-import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-cuestionario-satisfaccion-inactivo',

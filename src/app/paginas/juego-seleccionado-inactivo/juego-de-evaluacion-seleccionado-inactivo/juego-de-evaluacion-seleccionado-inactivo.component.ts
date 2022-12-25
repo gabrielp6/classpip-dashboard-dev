@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { EvaluacionDialogoComponent } from '../../juego-seleccionado-activo/juego-de-evaluacion-activo/evaluacion-dialogo/evaluacion-dialogo.component';
-import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 
 @Component({

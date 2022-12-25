@@ -3,7 +3,7 @@ import { Juego, Alumno } from 'src/app/clases';
 import { AlumnoJuegoDeCuestionario } from 'src/app/clases/AlumnoJuegoDeCuestionario';
 import { TablaAlumnoJuegoDeCuestionario } from 'src/app/clases/TablaAlumnoJuegoDeCuestionario';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-import { SesionService, PeticionesAPIService, CalculosService } from 'src/app/servicios';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from 'src/app/servicios';
 import { JuegoDeCuestionario } from 'src/app/clases/JuegoDeCuestionario';
 import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import Swal from 'sweetalert2';
@@ -47,7 +47,8 @@ export class JuegoDeGeocachingSeleccionadoActivoComponent implements OnInit {
                 public sesion: SesionService,
                 public peticionesAPI: PeticionesAPIService,
                 public calculos: CalculosService,
-                private location: Location) { }
+                private location: Location,
+                private comServerService: ComServerService) { }
 
   ngOnInit() {
     this.juegoSeleccionado = this.sesion.DameJuego();
@@ -88,6 +89,7 @@ export class JuegoDeGeocachingSeleccionadoActivoComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.juegoSeleccionado.profesorId, this.juegoSeleccionado.grupoId, this.juegoSeleccionado.idescenario), this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId)
       .subscribe(res => {
+        this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
         this.location.back();
       });
   }

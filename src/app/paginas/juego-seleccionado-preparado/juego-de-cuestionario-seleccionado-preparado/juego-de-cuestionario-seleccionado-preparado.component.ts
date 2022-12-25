@@ -10,7 +10,7 @@ import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmac
 import { TablaAlumnoJuegoDeCuestionario } from 'src/app/clases/TablaAlumnoJuegoDeCuestionario';
 // tslint:disable-next-line:max-line-length
 import { InformacionJuegoDeCuestionarioDialogComponent } from '../../juego-seleccionado-activo/juego-de-cuestionario-seleccionado-activo/informacion-juego-de-cuestionario-dialog/informacion-juego-de-cuestionario-dialog.component';
-import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 import { Observable } from 'rxjs';
 
 @Component({

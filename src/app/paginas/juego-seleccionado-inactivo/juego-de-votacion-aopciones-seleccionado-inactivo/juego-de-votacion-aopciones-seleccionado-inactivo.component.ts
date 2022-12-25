@@ -6,7 +6,7 @@ import { AlumnoJuegoDeVotacionAOpciones } from 'src/app/clases';
 import { MatTableDataSource } from '@angular/material/table';
 import {jsPDF} from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { reActivarJuego } from './../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 
 @Component({

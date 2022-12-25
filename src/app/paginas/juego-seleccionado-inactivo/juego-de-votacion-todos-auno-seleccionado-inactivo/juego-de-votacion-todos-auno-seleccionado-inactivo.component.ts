@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import {JuegoDeVotacionTodosAUno, Alumno, AlumnoJuegoDeVotacionTodosAUno, TablaAlumnoJuegoDeVotacionTodosAUno} from '../../../clases/index';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
-import { reActivarJuego } from '../../ventana-re-activar-juego/reActivarJuego';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-votacion-todos-auno-seleccionado-inactivo',

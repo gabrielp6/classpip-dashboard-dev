@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-evaluacion-activo',
@@ -826,16 +827,7 @@ export class JuegoDeEvaluacionActivoComponent implements OnInit {
   
   DesactivarJuego() {
   
-   
-    
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego de evaluación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
         this.GuardarNotasFinales();
 
@@ -843,6 +835,7 @@ export class JuegoDeEvaluacionActivoComponent implements OnInit {
         this.peticionesAPI.CambiaEstadoJuegoDeEvaluacion (this.juego)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServer.enviarInfoGrupoJuegoStatus(this.juego.grupoId);
               console.log(res);
               console.log('juego desactivado');
               Swal.fire('El juego se ha desactivado correctamente');
