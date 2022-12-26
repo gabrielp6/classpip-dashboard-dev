@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { Howl } from 'howler';
 import { EquipoJuegoDeVotacionUnoATodos } from 'src/app/clases/EquipoJuegoDeVotacionUnoATodos';
 import { TablaEquipoJuegoDeVotacionUnoATodos } from 'src/app/clases/TablaEquipoJuegoDeVotacionUnoATodos';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-votacion-uno-atodos-seleccionado-activo',
@@ -308,14 +309,7 @@ export class JuegoDeVotacionUnoATodosSeleccionadoActivoComponent implements OnIn
   }
 
   DesactivarJuego() {
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego de votación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
         // Primero registro las puntuaciones definitivas 
         if (this.juegoSeleccionado.Modo === 'Individual') {
@@ -334,6 +328,7 @@ export class JuegoDeVotacionUnoATodosSeleccionadoActivoComponent implements OnIn
         this.peticionesAPI.CambiaEstadoJuegoDeVotacionUnaATodos (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServer.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               console.log(res);
               console.log('juego desactivado');
               Swal.fire('El juego se ha desactivado correctamente');

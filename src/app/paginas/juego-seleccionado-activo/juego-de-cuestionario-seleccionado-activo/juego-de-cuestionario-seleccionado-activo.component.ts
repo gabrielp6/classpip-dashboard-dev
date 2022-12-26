@@ -662,6 +662,7 @@ export class JuegoDeCuestionarioSeleccionadoActivoComponent implements OnInit {
         this.juegoSeleccionado.JuegoActivo = false;
         this.peticionesAPI.ModificaJuegoDeCuestionario (this.juegoSeleccionado, this.juegoSeleccionado.id)
         .subscribe (() => {
+          this.comServer.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
           Swal.fire('Desactivado', this.juegoSeleccionado.Tipo + ' Desactivado correctamente', 'success');
           this.location.back();
         })

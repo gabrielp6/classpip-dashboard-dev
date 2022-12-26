@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Juego, Alumno, Equipo, EquipoJuegoDeCuestionario, TablaEquipoJuegoDeCuestionario } from 'src/app/clases';
 import { AlumnoJuegoDeCuestionario } from 'src/app/clases/AlumnoJuegoDeCuestionario';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-import { SesionService, PeticionesAPIService, CalculosService } from 'src/app/servicios';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from 'src/app/servicios';
 import { Location } from '@angular/common';
 import { JuegoDeCuestionario } from 'src/app/clases/JuegoDeCuestionario';
 import Swal from 'sweetalert2';
@@ -10,6 +10,8 @@ import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmac
 import { TablaAlumnoJuegoDeCuestionario } from 'src/app/clases/TablaAlumnoJuegoDeCuestionario';
 // tslint:disable-next-line:max-line-length
 import { InformacionJuegoDeCuestionarioDialogComponent } from '../../juego-seleccionado-activo/juego-de-cuestionario-seleccionado-activo/informacion-juego-de-cuestionario-dialog/informacion-juego-de-cuestionario-dialog.component';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-juego-de-cuestionario-seleccionado-preparado',
@@ -49,7 +51,8 @@ export class JuegoDeCuestionarioSeleccionadoPreparadoComponent implements OnInit
                 public sesion: SesionService,
                 public peticionesAPI: PeticionesAPIService,
                 public calculos: CalculosService,
-                private location: Location) { }
+                private location: Location,
+                public comServerService: ComServerService) { }
 
   ngOnInit() {
     this.juegoSeleccionado = this.sesion.DameJuego();
@@ -209,30 +212,21 @@ export class JuegoDeCuestionarioSeleccionadoPreparadoComponent implements OnInit
  
   
   Activar() {
-    Swal.fire({
-      title: '¿Seguro que quieres activar el juego?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    reActivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;
         this.peticionesAPI.ModificaJuegoDeCuestionario (this.juegoSeleccionado, this.juegoSeleccionado.id)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }
         });
       }
-    });
+    })
   }
-
-
-
   
   AbrirDialogoConfirmacionEliminar(): void {
 

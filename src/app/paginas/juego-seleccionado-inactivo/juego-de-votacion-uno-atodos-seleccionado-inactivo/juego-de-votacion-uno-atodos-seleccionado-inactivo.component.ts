@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SesionService, PeticionesAPIService, CalculosService } from '../../../servicios/index';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from '../../../servicios/index';
 import Swal from 'sweetalert2';
 import {JuegoDeVotacionUnoATodos, Alumno, AlumnoJuegoDeVotacionUnoATodos, TablaAlumnoJuegoDeVotacionUnoATodos, Equipo} from '../../../clases/index';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
 import { EquipoJuegoDeVotacionUnoATodos } from 'src/app/clases/EquipoJuegoDeVotacionUnoATodos';
 import { TablaEquipoJuegoDeVotacionUnoATodos } from 'src/app/clases/TablaEquipoJuegoDeVotacionUnoATodos';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-votacion-uno-atodos-seleccionado-inactivo',
@@ -32,7 +33,8 @@ export class JuegoDeVotacionUnoATodosSeleccionadoInactivoComponent implements On
     public sesion: SesionService,
     public peticionesAPI: PeticionesAPIService,
     public calculos: CalculosService,
-    private location: Location
+    private location: Location,
+    public comServerService: ComServerService
   ) { }
 
   ngOnInit() {
@@ -143,20 +145,14 @@ export class JuegoDeVotacionUnoATodosSeleccionadoInactivoComponent implements On
   }
 
   Reactivar() {
-    Swal.fire({
-      title: '¿Seguro que quieres activar el juego de votación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    reActivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;
         this.peticionesAPI.CambiaEstadoJuegoDeVotacionUnaATodos (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }

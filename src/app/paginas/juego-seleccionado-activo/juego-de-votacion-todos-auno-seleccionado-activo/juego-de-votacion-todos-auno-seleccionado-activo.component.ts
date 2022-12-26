@@ -8,6 +8,7 @@ import {JuegoDeVotacionTodosAUno, Alumno, AlumnoJuegoDeVotacionTodosAUno} from '
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
 import { Howl } from 'howler';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-votacion-todos-auno-seleccionado-activo',
@@ -134,14 +135,7 @@ export class JuegoDeVotacionTodosAUnoSeleccionadoActivoComponent implements OnIn
   }
 
   DesactivarJuego() {
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego de votación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
         // Primero registro las puntuaciones definitivas de cada alumno
         this.listaAlumnosOrdenadaPorPuntos.forEach (alumno => {
@@ -155,6 +149,7 @@ export class JuegoDeVotacionTodosAUnoSeleccionadoActivoComponent implements OnIn
         this.peticionesAPI.CambiaEstadoJuegoDeVotacionTodosAUno (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServer.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               console.log(res);
               console.log('juego desactivado');
               Swal.fire('El juego se ha desactivado correctamente');

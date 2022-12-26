@@ -6,12 +6,13 @@ import { Alumno, Equipo, Juego,Jornada,TablaJornadas,TablaAlumnoJuegoDeCompetici
           EnfrentamientoTorneo } from '../../../clases/index';
 
 // Servicio
-import { SesionService, PeticionesAPIService, CalculosService } from '../../../servicios/index';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from '../../../servicios/index';
 
 // Imports para abrir diálogo y swal
 import { MatDialog } from '@angular/material';
 import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import Swal from 'sweetalert2';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class JuegoDeCompeticionTorneoSeleccionadoActivoComponent implements OnIn
                 public sesion: SesionService,
                 public peticionesAPI: PeticionesAPIService,
                 public calculos: CalculosService,
-                private location: Location) {}
+                private location: Location,
+                public comServerService: ComServerService) {}
 
   ngOnInit() {
     this.juegoSeleccionado = this.sesion.DameJuego();
@@ -346,19 +348,13 @@ DameNombreGanador() {
   }
 
   DesactivarJuego() {
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
         this.juegoSeleccionado.JuegoActivo = false;
         this.peticionesAPI.CambiaEstadoJuegoDeCompeticionTorneo (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha desactivado correctamente');
               this.location.back();
             }

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import {MatTableDataSource} from '@angular/material/table';
 import { MisPuntosComponent } from '../../mis-puntos/mis-puntos.component';
 import { Observable } from 'rxjs';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-control-de-trabajo-en-equipo-seleccionado-activo',
@@ -40,7 +41,7 @@ export class JuegoDeControlDeTrabajoEnEquipoSeleccionadoActivoComponent implemen
     public sesion: SesionService,
     public peticionesAPI: PeticionesAPIService,
     public calculos: CalculosService,
-    private comServer: ComServerService,
+    private comServerService: ComServerService,
     private location: Location) { }
 
   ngOnInit() {
@@ -306,20 +307,14 @@ export class JuegoDeControlDeTrabajoEnEquipoSeleccionadoActivoComponent implemen
 
 
   Reactivar() {
-    Swal.fire({
-      title: '¿Seguro que quieres activar el juego?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = true;
         this.peticionesAPI.CambiaEstadoJuegoDeControlDeTrabajoEnEquipo (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               Swal.fire('El juego se ha activado correctamente');
               this.location.back();
             }
