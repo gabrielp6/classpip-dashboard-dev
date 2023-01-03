@@ -545,7 +545,7 @@ RegistrarAsistencia() {
       title: "Introduce la nueva observación",
       input: 'textarea',
       showCancelButton: true
-    }).then((result) => {
+    }).then((result : any) => {
       if (result.value) {
         if (sesion.Observaciones === undefined) {
           sesion.Observaciones = [];
@@ -602,7 +602,7 @@ RegistrarAsistencia() {
       inputValue: sesion.Observaciones[i],
       input: 'textarea',
       showCancelButton: true
-    }).then((result) => {
+    }).then((result : any) => {
       if (result.value) {
         sesion.Observaciones[i] = result.value;
         this.peticionesAPI.ModificaSesionClase (sesion)

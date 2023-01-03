@@ -72,7 +72,7 @@ export class EditarRubricaComponent implements OnInit {
       input: 'text',
       inputValue: this.rubricaSeleccionada.Criterios[i].Nombre ,
       showCancelButton: true
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.value) {
         this.rubricaSeleccionada.Criterios[i].Nombre = result.value;
         this.rubricaModificada = true;
@@ -85,7 +85,7 @@ export class EditarRubricaComponent implements OnInit {
       title: 'Introduce el nuevo criterio',
       input: 'text',
       showCancelButton: true
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.value) {
         this.rubricaSeleccionada.Criterios.push ({
           Nombre: result.value,
@@ -126,7 +126,7 @@ export class EditarRubricaComponent implements OnInit {
       input: 'text',
       inputValue: this.rubricaSeleccionada.Criterios[i].Elementos[j],
       showCancelButton: true
-    }).then((result) => {
+    }).then((result: any) => {
       if (result.value) {
         this.rubricaSeleccionada.Criterios[i].Elementos[j] = result.value;
         this.rubricaModificada = true;
@@ -140,7 +140,7 @@ export class EditarRubricaComponent implements OnInit {
       title: 'Introduce el nuevo elemento',
       input: 'text',
       showCancelButton: true
-    }).then((result) => {
+    }).then((result : any) => {
       if (result.value) {
         this.rubricaSeleccionada.Criterios[i].Elementos.push (result.value);
         this.rubricaModificada = true;
