@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ResponseContentType, Http, Response } from '@angular/http';
-
 
 // Servicios
 import { PeticionesAPIService, SesionService} from '../../../servicios/index';
@@ -32,8 +30,7 @@ export class EditarInsigniaComponent implements OnInit {
   // tslint:disable-next-line:no-shadowed-variable
   constructor(  private location: Location,
                 private sesion: SesionService,
-                private peticionesAPI: PeticionesAPIService,
-                private http: Http ) { }
+                private peticionesAPI: PeticionesAPIService ) { }
 
   ngOnInit() {
     this.insignia = this.sesion.DameInsignia();

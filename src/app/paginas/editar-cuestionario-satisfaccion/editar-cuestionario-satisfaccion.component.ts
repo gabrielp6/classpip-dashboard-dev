@@ -55,7 +55,7 @@ export class EditarCuestionarioSatisfaccionComponent implements OnInit {
       input: 'text',
       inputValue: this.cuestionarioSeleccionado.Afirmaciones[i],
       showCancelButton: true
-    }).then((result) => {
+    }).then((result: any) => {
       if (result.value) {
         this.cuestionarioSeleccionado.Afirmaciones[i] = result.value;
         this.cuestionarioModificado = true;
@@ -67,7 +67,7 @@ export class EditarCuestionarioSatisfaccionComponent implements OnInit {
       title: "Introduce la nueva afirmación",
       input: 'text',
       showCancelButton: true
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.value) {
         this.cuestionarioSeleccionado.Afirmaciones.push (result.value);
         this.cuestionarioModificado = true;
@@ -92,7 +92,7 @@ export class EditarCuestionarioSatisfaccionComponent implements OnInit {
       input: 'text',
       inputValue: this.cuestionarioSeleccionado.PreguntasAbiertas[i],
       showCancelButton: true
-    }).then((result) => {
+    }).then((result : any) => {
       if (result.value) {
         this.cuestionarioSeleccionado.PreguntasAbiertas[i] = result.value;
         this.cuestionarioModificado = true;
@@ -106,7 +106,7 @@ export class EditarCuestionarioSatisfaccionComponent implements OnInit {
       title: "Introduce la nueva pregunta",
       input: 'text',
       showCancelButton: true
-    }).then((result) => {
+    }).then((result : any) => {
       if (result.value) {
         this.cuestionarioSeleccionado.PreguntasAbiertas.push (result.value);
         this.cuestionarioModificado = true;

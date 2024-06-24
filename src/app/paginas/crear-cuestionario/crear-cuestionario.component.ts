@@ -158,7 +158,7 @@ export class CrearCuestionarioComponent implements OnInit {
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar'
   
-      }).then((result) => {
+      }).then((result: any) => {
         if (result.value) {
           this.sesion.TomaCuestionario (this.cuestionario);
          this.calculos.EliminarCuestionario().subscribe ( () => obs.next(result.value));

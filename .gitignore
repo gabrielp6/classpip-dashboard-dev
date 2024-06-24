@@ -44,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/app/paginas/juego-seleccionado-inactivo/juego-de-cuestionario-seleccionado-inactivo/informacion-respuestas-juego-de-cuestionario-dialog/informacion-respuestas-juego-de-cuestionario-dialog.component.spec.ts
+src/app/paginas/juego-seleccionado-inactivo/juego-de-cuestionario-seleccionado-inactivo/informacion-respuestas-juego-de-cuestionario-dialog/informacion-respuestas-juego-de-cuestionario-dialog.component.html
+src/app/paginas/juego-seleccionado-inactivo/juego-de-cuestionario-seleccionado-inactivo/informacion-respuestas-juego-de-cuestionario-dialog/informacion-respuestas-juego-de-cuestionario-dialog.component.scss

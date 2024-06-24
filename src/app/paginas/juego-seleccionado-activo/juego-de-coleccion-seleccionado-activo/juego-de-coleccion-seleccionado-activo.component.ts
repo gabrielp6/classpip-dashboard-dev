@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion, Coleccion } from '../../../clases/index';
 
 // Services
-import { SesionService, PeticionesAPIService, CalculosService } from '../../../servicios/index';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from '../../../servicios/index';
 
 // Imports para abrir diálogo y Swal
 import { MatDialog } from '@angular/material';
@@ -50,7 +50,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
                public peticionesAPI: PeticionesAPIService,
                public calculos: CalculosService,
                private router: Router,
-               private location: Location) { }
+               private location: Location,
+               public comServerService: ComServerService) { }
 
   ngOnInit() {
     this.juegoSeleccionado = this.sesion.DameJuego();
@@ -222,6 +223,7 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.peticionesAPI.CambiaEstadoJuegoDeColeccion(this.juegoSeleccionado).subscribe(res => {
         if (res !== undefined) {
+          this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
           this.location.back();
         }
       });

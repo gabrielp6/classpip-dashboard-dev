@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Juego, Alumno } from 'src/app/clases';
 import { AlumnoJuegoDeCuestionario } from 'src/app/clases/AlumnoJuegoDeCuestionario';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-import { SesionService, PeticionesAPIService, CalculosService } from 'src/app/servicios';
+import { SesionService, PeticionesAPIService, CalculosService, ComServerService } from 'src/app/servicios';
 import { Location } from '@angular/common';
 import { JuegoDeCuestionario } from 'src/app/clases/JuegoDeCuestionario';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ import { InformacionJuegoDeGeocachingDialogComponent } from '../../juego-selecci
 import { AlumnoJuegoDeGeocaching } from 'src/app/clases/AlumnoJuegoDeGeocaching';
 import { TablaAlumnoJuegoDeGeocaching } from 'src/app/clases/TablaAlumnoJuegoDeGeocaching';
 import { JuegoDeGeocaching } from 'src/app/clases/JuegoDeGeocaching';
+import { reActivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 @Component({
   selector: 'app-juego-de-geocaching-seleccionado-preparado',
@@ -47,7 +48,8 @@ export class JuegoDeGeocachingSeleccionadoPreparadoComponent implements OnInit {
                 public sesion: SesionService,
                 public peticionesAPI: PeticionesAPIService,
                 public calculos: CalculosService,
-                private location: Location) { }
+                private location: Location,
+                public comServerService: ComServerService) { }
 
   ngOnInit() {
     console.log (' Estoy en ngOnInit');
@@ -93,6 +95,7 @@ export class JuegoDeGeocachingSeleccionadoPreparadoComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.juegoSeleccionado.profesorId, this.juegoSeleccionado.grupoId, this.juegoSeleccionado.idescenario), this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId)
       .subscribe(res => {
+        this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
         this.location.back();
       });
   }

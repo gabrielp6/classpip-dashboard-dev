@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
-import {SesionService, PeticionesAPIService, CalculosService} from '../../../servicios/index';
+import {SesionService, PeticionesAPIService, CalculosService, ComServerService} from '../../../servicios/index';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import {AlumnoJuegoDeCuestionarioSatisfaccion, CuestionarioSatisfaccion } from '../../../clases/index';
@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import {jsPDF} from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { desactivarJuego } from '../../ventana-activar-desactivar/activarDesactivarJuego';
 
 
 @Component({
@@ -15,7 +16,7 @@ import autoTable from 'jspdf-autotable';
   styleUrls: ['./juego-de-cuestionario-satisfaccion-activo.component.scss']
 })
 export class JuegoDeCuestionarioSatisfaccionActivoComponent implements OnInit {
-  @ViewChild('htmlData') htmlData: ElementRef;
+  @ViewChild('htmlData', {static: false}) htmlData: ElementRef;
 
   juegoSeleccionado: any;
   inscripciones: AlumnoJuegoDeCuestionarioSatisfaccion[];
@@ -35,7 +36,8 @@ export class JuegoDeCuestionarioSatisfaccionActivoComponent implements OnInit {
     private calculos: CalculosService,
     private sesion: SesionService,
     private peticionesAPI: PeticionesAPIService,
-    private location: Location
+    private location: Location,
+    private comServerService: ComServerService
   ) { }
 
   ngOnInit() {
@@ -136,20 +138,14 @@ export class JuegoDeCuestionarioSatisfaccionActivoComponent implements OnInit {
   }
 
   DesactivarJuego() {
-    Swal.fire({
-      title: '¿Seguro que quieres desactivar el juego?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro'
-    }).then((result) => {
+    desactivarJuego().then((result) => {
       if (result.value) {
 
         this.juegoSeleccionado.JuegoActivo = false;
         this.peticionesAPI.CambiaEstadoJuegoDeCuestionarioSatisfaccion (this.juegoSeleccionado)
         .subscribe(res => {
             if (res !== undefined) {
+              this.comServerService.enviarInfoGrupoJuegoStatus(this.juegoSeleccionado.grupoId);
               console.log(res);
               console.log('juego desactivado');
               Swal.fire('El juego se ha desactivado correctamente');

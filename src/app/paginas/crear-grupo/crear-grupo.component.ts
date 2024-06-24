@@ -186,7 +186,7 @@ export class CrearGrupoComponent implements OnInit {
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar'
   
-      }).then((result) => {
+      }).then((result : any) => {
         if (result.value) {
           this.sesion.TomaGrupo (this.grupo);
           this.calculos.EliminarGrupo().then ( () => obs.next(result.value));

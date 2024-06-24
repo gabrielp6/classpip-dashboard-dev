@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ResponseContentType, Http, Response } from '@angular/http';
 import Swal from 'sweetalert2';
 
 // Imports para abrir diálogo confirmar eliminar equipo
@@ -27,8 +26,8 @@ import * as URL from '../../URLs/urls';
 export class EquiposComponent implements OnInit {
 
   // Para el paso finalizar limpiar las variables y volver al mat-tab de "Lista de equipos"
-  @ViewChild('stepper') stepper;
-  @ViewChild('tabs') tabGroup: MatTabGroup;
+  @ViewChild('stepper', {static: false}) stepper;
+  @ViewChild('tabs', {static: false}) tabGroup: MatTabGroup;
   myForm: FormGroup;
 
 
@@ -86,8 +85,7 @@ export class EquiposComponent implements OnInit {
                private formBuilder: FormBuilder,
                private sesion: SesionService,
                private calculos: CalculosService,
-               private peticionesAPI: PeticionesAPIService,
-               private http: Http
+               private peticionesAPI: PeticionesAPIService
                ) { }
 
   ngOnInit() {

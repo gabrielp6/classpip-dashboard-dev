@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ResponseContentType, Http, Response } from '@angular/http';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -57,7 +56,7 @@ export class MisColeccionesComponent implements OnInit {
     public dialog: MatDialog,
     public sesion: SesionService,
     public peticionesAPI: PeticionesAPIService,
-    private http: Http
+
   ) { }
 
   ngOnInit() {

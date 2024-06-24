@@ -201,7 +201,7 @@ canExit(): Observable <boolean> {
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           confirmButtonText: 'Si, estoy seguro'
-        }).then((result) => {
+        }).then((result : any) => {
           if (result.value) {
             this.sonido = false;
             this.comServer.InformarFinJuegoRapido (this.profesorId);
